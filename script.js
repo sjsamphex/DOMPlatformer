@@ -116,8 +116,9 @@ class State {
 const playerXSpeed = 7;
 const gravity = 30;
 const jumpSpeed = 17;
+
 class Player {
-  constructor(pos, speed) {
+  constructor(pos, speed = 1) {
     this.pos = pos;
     this.speed = speed;
   }
@@ -125,7 +126,7 @@ class Player {
     return 'player';
   }
   static create(pos) {
-    return new Player(pos.plus(new Vec(0, -0.5), new Vec(0, 0)));
+    return new Player(pos.plus(new Vec(0, -0.5)), new Vec(0, 0));
   }
   update(time, state, keys) {
     let xSpeed = 0;
@@ -136,7 +137,6 @@ class Player {
     if (!state.level.touches(movedX, this.size, 'wall')) {
       pos = movedX;
     }
-
     let ySpeed = this.speed.y + time * gravity;
     let movedY = pos.plus(new Vec(0, ySpeed * time));
     if (!state.level.touches(movedY, this.size, 'wall')) {
